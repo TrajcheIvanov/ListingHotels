@@ -28,6 +28,14 @@ namespace ListingHotels
         {
 
             services.AddControllers();
+
+            services.AddCors(x => {
+                x.AddPolicy("AllowAll", builder =>
+                    builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ListingHotels", Version = "v1" });
@@ -40,11 +48,15 @@ namespace ListingHotels
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ListingHotels v1"));
             }
 
+            //custom modification, by default this two lines is in env.IsDevelopment
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ListingHotels v1"));
+
             app.UseHttpsRedirection();
+
+            app.UseCors("AllowAll");
 
             app.UseRouting();
 
