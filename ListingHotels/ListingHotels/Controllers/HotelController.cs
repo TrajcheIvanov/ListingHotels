@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ListingHotels.DtoModels;
 using ListingHotels.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -44,9 +45,11 @@ namespace ListingHotels.Controllers
             }
         }
 
+        
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
         public async Task<IActionResult> GetHotel(int id)
         {
             try
