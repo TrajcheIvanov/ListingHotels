@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿ using AutoMapper;
 using ListingHotels.DtoModels;
 using ListingHotels.IRepository;
 using Microsoft.AspNetCore.Http;
@@ -27,12 +27,14 @@ namespace ListingHotels.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetCountries()
         {
             try
             {
-                var counties = await _unitOfWork.Countries.GetAll();
-                var results = _mapper.Map<IList<CountryDto>>(counties);
+                var countries = await _unitOfWork.Countries.GetAll();
+                var results = _mapper.Map<IList<CountryDto>>(countries);
                 return Ok(results);
             }
             catch (Exception ex)
@@ -43,13 +45,15 @@ namespace ListingHotels.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetCountry(int id)
         {
             try
             {
                 var country = await _unitOfWork.Countries.Get(q=> q.Id == id, new List<string> { "Hotels"});
-                var results = _mapper.Map<CountryDto>(country);
-                return Ok(results);
+                var result = _mapper.Map<CountryDto>(country);
+                return Ok(result);
             }
             catch (Exception ex)
             {

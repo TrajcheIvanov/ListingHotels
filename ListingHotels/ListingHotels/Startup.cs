@@ -49,7 +49,7 @@ namespace ListingHotels
                     .AllowAnyHeader());
             });
 
-            services.AddAutoMapper(typeof(MapperInitilizer));
+            services.AddAutoMapper(typeof(MapperInitilizer)); 
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAuthManager, AuthManager>();
