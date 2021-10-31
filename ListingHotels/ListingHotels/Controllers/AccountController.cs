@@ -37,6 +37,9 @@ namespace ListingHotels.Controllers
 
         [HttpPost]
         [Route("register")]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Register([FromBody] UserDto userDto)
         {
             _logger.LogInformation($"Registration Attempt for {userDto.Email}");
@@ -73,6 +76,9 @@ namespace ListingHotels.Controllers
         
         [HttpPost]
         [Route("login")]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Login([FromBody] LoginUserDto userDTO)
         {
             _logger.LogInformation($"Login Attempt for {userDTO.Email} ");

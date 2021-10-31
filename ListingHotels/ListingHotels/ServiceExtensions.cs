@@ -26,8 +26,8 @@ namespace ListingHotels
         public static void ConfigureJWT(this IServiceCollection services, IConfiguration Configuration)
         {
             var jwtSettings = Configuration.GetSection("Jwt");
-            //var key = Environment.GetEnvironmentVariable("KEY");
-            var key = jwtSettings.GetSection("KEY").Value;
+            var key = Environment.GetEnvironmentVariable("KEY");
+            //var key = jwtSettings.GetSection("KEY").Value;
 
             services.AddAuthentication(o =>
             {
@@ -39,7 +39,7 @@ namespace ListingHotels
                 o.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
-                    //ValidateAudience = false,
+                    ValidateAudience = false,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = jwtSettings.GetSection("Issuer").Value,

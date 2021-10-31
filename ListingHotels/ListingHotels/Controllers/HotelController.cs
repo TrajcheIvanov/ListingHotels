@@ -45,7 +45,7 @@ namespace ListingHotels.Controllers
             }
         }
 
-        
+        [Authorize]
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
