@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace ListingHotels.Controllers
 {
+    //[ApiVersion("1.0")]
     [Route("api/[controller]")]
     [ApiController]
     public class CountryController : ControllerBase
@@ -33,7 +34,6 @@ namespace ListingHotels.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetCountries([FromQuery] RequestParams requestParams)
         {
-            
             var countries = await _unitOfWork.Countries.GetPagedList(requestParams);
             var results = _mapper.Map<IList<CountryDto>>(countries);
             return Ok(results);
