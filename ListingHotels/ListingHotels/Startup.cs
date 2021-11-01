@@ -1,3 +1,4 @@
+using AspNetCoreRateLimit;
 using AutoMapper;
 using ListingHotels.Configurations;
 using ListingHotels.Data;
@@ -37,6 +38,11 @@ namespace ListingHotels
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("sqlConnection"))
             );
+
+            services.AddMemoryCache();
+
+            services.ConfigurerateLimiting();
+            services.AddHttpContextAccessor();
 
             services.ConfigureHttpCacheHeaders();
 
@@ -93,6 +99,7 @@ namespace ListingHotels
 
             app.UseResponseCaching();
             app.UseHttpCacheHeaders();
+            app.UseIpRateLimiting();
 
             app.UseRouting();
 
